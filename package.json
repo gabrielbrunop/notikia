@@ -1,0 +1,12 @@
+{
+  "name": "notikia",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "docker-compose build",
+    "start": "docker-compose up"
+  },
+  "keywords": [],
+  "author": "gabrielbrunop",
+  "license": "GPLv3",
+  "private": true
+}

@@ -1,0 +1,58 @@
+services:
+  redis:
+    image: redis:alpine
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+    networks:
+      - app
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - app
+
+  filter:
+    build: ./packages/filter
+    restart: always
+    depends_on:
+      - redis
+      - rabbitmq
+    networks:
+      - app
+
+  test-broadcaster:
+    build: ./packages/broadcasters/test-broadcaster
+    restart: always
+    depends_on:
+      - redis
+      - rabbitmq
+      - filter
+    networks:
+      - app
+
+  test-provider:
+    build: ./packages/providers/test-provider
+    restart: always
+    depends_on:
+      - rabbitmq
+      - filter
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
+
+volumes:
+  redis_data:
+    driver: local
