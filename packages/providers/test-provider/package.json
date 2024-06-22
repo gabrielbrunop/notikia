@@ -1,0 +1,14 @@
+{
+  "name": "@notikia/test-provider",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "gabrielbrunop",
+  "license": "GPLv3",
+  "scripts": {
+    "start": "ts-node src/main.ts"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.2"
+  }
+}
